@@ -28,6 +28,7 @@ namespace LastTime.ViewModels
         private WinUI.NavigationViewItem _selected;
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
+        private ICommand _textChangedCommand;
 
         public bool IsBackEnabled
         {
@@ -44,6 +45,8 @@ namespace LastTime.ViewModels
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+
+        public ICommand TextChangedCommand => _textChangedCommand ?? (_textChangedCommand = new RelayCommand<AutoSuggestBoxTextChangedEventArgs>(OnTextChanged));
 
         public ShellViewModel()
         {
@@ -84,6 +87,11 @@ namespace LastTime.ViewModels
         private void OnBackRequested(WinUI.NavigationView sender, WinUI.NavigationViewBackRequestedEventArgs args)
         {
             NavigationService.GoBack();
+        }
+
+        private void OnTextChanged(AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // throw new NotImplementedException();
         }
 
         private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
@@ -149,5 +157,13 @@ namespace LastTime.ViewModels
             var result = NavigationService.GoBack();
             args.Handled = result;
         }
+
+        public string GetAppTitleFromSystem()
+        {
+            return Windows.ApplicationModel.Package.Current.DisplayName;
+        }
+
+        // TODO: Add command to response for pane change.
+        // TODO: Deal with back button and title bar.
     }
 }
