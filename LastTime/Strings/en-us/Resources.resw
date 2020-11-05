@@ -169,4 +169,8 @@
     <value>Personalization</value>
     <comment>Personalization text for Settings</comment>
   </data>
+  <data name="Shell_Events.Content" xml:space="preserve">
+    <value>Events</value>
+    <comment>Navigation view item name for Events</comment>
+  </data>
 </root>
