@@ -31,7 +31,7 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Height="40"
-                Canvas.ZIndex="1" Margin="60,0,0,0">
+                Canvas.ZIndex="1" Margin="40,0,0,0">
             <TextBlock x:Name="AppTitle"
                 Text="{x:Bind ViewModel.GetAppTitleFromSystem()}"
                 VerticalAlignment="Center"
@@ -45,6 +45,8 @@
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
             AlwaysShowHeader="True"
+            PaneOpening="NavigationView_PaneOpened"
+            PaneClosing="NavigationView_PaneClosing"
             IsBackButtonVisible="Visible"
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"

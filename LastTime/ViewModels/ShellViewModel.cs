@@ -8,7 +8,9 @@ using LastTime.Helpers;
 using LastTime.Services;
 using LastTime.Views;
 
+using Windows.Foundation.Metadata;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -92,6 +94,42 @@ namespace LastTime.ViewModels
         private void OnTextChanged(AutoSuggestBoxTextChangedEventArgs args)
         {
             // throw new NotImplementedException();
+            Console.WriteLine(args.ToString());
+        }
+
+        // TODO: Update app title margin in MVVM mode. i.e. The communication between View and ViewModel.
+        internal void UpdateAppTitleMargin(TextBlock appTitle, WinUI.NavigationView sender)
+        {
+            const int smallLeftIndent = 4, largeLeftIndent = 24;
+
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7))
+            {
+                appTitle.TranslationTransition = new Vector3Transition();
+
+                if ((sender.DisplayMode == WinUI.NavigationViewDisplayMode.Expanded && sender.IsPaneOpen) ||
+                         sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
+                {
+                    appTitle.Translation = new System.Numerics.Vector3(smallLeftIndent, 0, 0);
+                }
+                else
+                {
+                    appTitle.Translation = new System.Numerics.Vector3(largeLeftIndent, 0, 0);
+                }
+            }
+            else
+            {
+                Thickness currMargin = appTitle.Margin;
+
+                if ((sender.DisplayMode == WinUI.NavigationViewDisplayMode.Expanded && sender.IsPaneOpen) ||
+                         sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
+                {
+                    appTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                }
+                else
+                {
+                    appTitle.Margin = new Thickness(largeLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
+                }
+            }
         }
 
         private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
@@ -163,7 +201,6 @@ namespace LastTime.ViewModels
             return Windows.ApplicationModel.Package.Current.DisplayName;
         }
 
-        // TODO: Add command to response for pane change.
         // TODO: Deal with back button and title bar.
     }
 }

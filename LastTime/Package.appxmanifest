@@ -15,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="44355ACE-C064-47B3-9164-51877ED69980" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>LastTime</DisplayName>
+    <DisplayName>Last Time</DisplayName>
     <PublisherDisplayName>MyFix</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
