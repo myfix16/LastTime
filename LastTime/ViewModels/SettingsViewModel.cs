@@ -31,15 +31,6 @@ namespace LastTime.ViewModels
             set { Set(ref _versionDescription, value); }
         }
 
-        private string _appDescription;
-
-        public string AppDescription
-        {
-            get { return _appDescription; }
-            set { Set(ref _appDescription, value); }
-        }
-
-
         private ICommand _switchThemeCommand;
 
         public ICommand SwitchThemeCommand
@@ -67,7 +58,6 @@ namespace LastTime.ViewModels
         public async Task InitializeAsync()
         {
             VersionDescription = GetVersionDescription();
-            AppDescription = GetAppDescription();
             await Task.CompletedTask;
         }
 
@@ -80,10 +70,5 @@ namespace LastTime.ViewModels
 
             return $"{appName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
-
-        private string GetAppDescription()
-            => "\"When did I do last time?\" \"How long haven't I done this thing?\" " +
-               "--This app will help you. It can record the last-done-time of one event " +
-               "so that you can remember the last time soon.";
     }
 }

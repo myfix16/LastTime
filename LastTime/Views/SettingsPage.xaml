@@ -60,8 +60,7 @@
                 <TextBlock
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="{x:Bind ViewModel.AppDescription, Mode=OneWay}"/>
+                    Style="{ThemeResource BodyTextBlockStyle}" />
 
                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
             </StackPanel>
