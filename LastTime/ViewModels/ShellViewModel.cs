@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Description;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -19,7 +20,7 @@ using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace LastTime.ViewModels
 {
-    public class ShellViewModel : Observable
+    public class ShellViewModel : ViewModelBase
     {
         private readonly KeyboardAccelerator _altLeftKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu);
         private readonly KeyboardAccelerator _backKeyboardAccelerator = BuildKeyboardAccelerator(VirtualKey.GoBack);
@@ -31,6 +32,7 @@ namespace LastTime.ViewModels
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
         private ICommand _textChangedCommand;
+        private ICommand _sendMessageCommand;
 
         public bool IsBackEnabled
         {
@@ -44,11 +46,14 @@ namespace LastTime.ViewModels
             set { Set(ref _selected, value); }
         }
 
-        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
+        public ICommand LoadedCommand => _loadedCommand ??= new RelayCommand(OnLoaded);
 
-        public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
+        public ICommand ItemInvokedCommand => _itemInvokedCommand ??= new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked);
 
-        public ICommand TextChangedCommand => _textChangedCommand ?? (_textChangedCommand = new RelayCommand<AutoSuggestBoxTextChangedEventArgs>(OnTextChanged));
+        public ICommand TextChangedCommand => _textChangedCommand ??= new RelayCommand<AutoSuggestBoxTextChangedEventArgs>(OnTextChanged);
+
+        public ICommand SendMessageCommand
+            => _sendMessageCommand ??= new RelayCommand<string>(s=>MsgManager.SendMsg(s));
 
         public ShellViewModel()
         {
@@ -162,71 +167,5 @@ namespace LastTime.ViewModels
         public string GetAppTitleFromSystem()
             => Windows.ApplicationModel.Package.Current.DisplayName;
 
-        private void NavigationView_DisplayModeChanged(WinUI.NavigationView sender, WinUI.NavigationViewDisplayModeChangedEventArgs args)
-        {
-            Thickness currMargin = AppTitleBar.Margin;
-            if (sender.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
-            {
-                AppTitleBar.Margin = new Thickness((sender.CompactPaneLength * 2), currMargin.Top, currMargin.Right, currMargin.Bottom);
-
-            }
-            else
-            {
-                AppTitleBar.Margin = new Thickness(sender.CompactPaneLength, currMargin.Top, currMargin.Right, currMargin.Bottom);
-            }
-
-            UpdateAppTitleMargin(sender);
-            UpdateHeaderMargin(sender);
-        }
-
-        // TODO: Update app title margin in MVVM mode. i.e. The communication between View and ViewModel.
-        internal void UpdateAppTitleMargin(TextBlock appTitle, WinUI.NavigationView sender)
-        {
-            const int smallLeftIndent = 4, largeLeftIndent = 24;
-
-            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 7))
-            {
-                appTitle.TranslationTransition = new Vector3Transition();
-
-                if ((sender.DisplayMode == WinUI.NavigationViewDisplayMode.Expanded && sender.IsPaneOpen) ||
-                         sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
-                {
-                    appTitle.Translation = new System.Numerics.Vector3(smallLeftIndent, 0, 0);
-                }
-                else
-                {
-                    appTitle.Translation = new System.Numerics.Vector3(largeLeftIndent, 0, 0);
-                }
-            }
-            else
-            {
-                Thickness currMargin = appTitle.Margin;
-
-                if ((sender.DisplayMode == WinUI.NavigationViewDisplayMode.Expanded && sender.IsPaneOpen) ||
-                         sender.DisplayMode == WinUI.NavigationViewDisplayMode.Minimal)
-                {
-                    appTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                }
-                else
-                {
-                    appTitle.Margin = new Thickness(largeLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-                }
-            }
-        }
-
-        private void UpdateHeaderMargin(Microsoft.UI.Xaml.Controls.NavigationView sender)
-        {
-            if (PageHeader != null)
-            {
-                if (sender.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
-                {
-                    Current.PageHeader.HeaderPadding = (Thickness)App.Current.Resources["PageHeaderMinimalPadding"];
-                }
-                else
-                {
-                    Current.PageHeader.HeaderPadding = (Thickness)App.Current.Resources["PageHeaderDefaultPadding"];
-                }
-            }
-        }
     }
 }

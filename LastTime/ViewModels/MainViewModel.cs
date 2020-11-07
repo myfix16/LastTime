@@ -4,7 +4,7 @@ using LastTime.Helpers;
 
 namespace LastTime.ViewModels
 {
-    public class MainViewModel : Observable
+    public class MainViewModel : ViewModelBase
     {
         public MainViewModel()
         {

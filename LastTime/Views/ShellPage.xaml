@@ -45,8 +45,6 @@
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
             AlwaysShowHeader="True"
-            PaneOpening="NavigationView_PaneOpened"
-            PaneClosing="NavigationView_PaneClosing"
             IsBackButtonVisible="Visible"
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
@@ -98,6 +96,21 @@
 
                 <ic:EventTriggerBehavior EventName="ItemInvoked">
                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                </ic:EventTriggerBehavior>
+                <ic:EventTriggerBehavior EventName="PaneOpening">
+                    <ic:InvokeCommandAction
+                        Command="{x:Bind ViewModel.SendMessageCommand}"
+                        CommandParameter="PaneChangedMessage" />
+                </ic:EventTriggerBehavior>
+                <ic:EventTriggerBehavior EventName="PaneClosing">
+                    <ic:InvokeCommandAction
+                        Command="{x:Bind ViewModel.SendMessageCommand}"
+                        CommandParameter="PaneChangedMessage" />
+                </ic:EventTriggerBehavior>
+                <ic:EventTriggerBehavior EventName="DisplayModeChanged">
+                    <ic:InvokeCommandAction
+                        Command="{x:Bind ViewModel.SendMessageCommand}"
+                        CommandParameter="DisplayModeChangedMessage" />
                 </ic:EventTriggerBehavior>
 
             </i:Interaction.Behaviors>

@@ -13,7 +13,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 namespace LastTime.ViewModels
 {
-    public class ContentGridViewModel : Observable
+    public class ContentGridViewModel : ViewModelBase
     {
         private ICommand _itemClickCommand;
 

@@ -8,7 +8,7 @@ using LastTime.Helpers;
 
 namespace LastTime.ViewModels
 {
-    public class EventsDetailViewModel : Observable
+    public class EventsDetailViewModel : ViewModelBase
     {
         private SampleOrder _item;
 

@@ -13,7 +13,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 namespace LastTime.ViewModels
 {
-    public class EventsViewModel : Observable
+    public class EventsViewModel : ViewModelBase
     {
         private ICommand _itemClickCommand;
 

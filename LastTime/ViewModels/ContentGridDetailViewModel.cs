@@ -8,7 +8,7 @@ using LastTime.Helpers;
 
 namespace LastTime.ViewModels
 {
-    public class ContentGridDetailViewModel : Observable
+    public class ContentGridDetailViewModel : ViewModelBase
     {
         private SampleOrder _item;
 
