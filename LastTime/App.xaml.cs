@@ -32,7 +32,6 @@ namespace LastTime
         {
             if (!args.PrelaunchActivated)
             {
-                ExtendAcrylicIntoTitleBar();
                 await ActivationService.ActivateAsync(args);
             }
         }
@@ -56,14 +55,6 @@ namespace LastTime
         private UIElement CreateShell()
         {
             return new Views.ShellPage();
-        }
-
-        private void ExtendAcrylicIntoTitleBar()
-        {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
         }
     }
 }

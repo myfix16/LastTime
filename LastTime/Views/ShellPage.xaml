@@ -88,9 +88,9 @@
                         <DataTemplate>
                             <Grid>
                                 <TextBlock
-                                Text="{Binding}"
-                                Style="{ThemeResource TitleTextBlockStyle}"
-                                Margin="{StaticResource SmallLeftRightMargin}" />
+                                    Text="{Binding}"
+                                    Style="{ThemeResource TitleTextBlockStyle}"
+                                    Margin="{StaticResource SmallLeftRightMargin}" />
                             </Grid>
                         </DataTemplate>
                     </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>

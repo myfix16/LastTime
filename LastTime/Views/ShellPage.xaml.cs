@@ -2,6 +2,8 @@
 
 using LastTime.ViewModels;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,8 +20,14 @@ namespace LastTime.Views
             DataContext = ViewModel;
             ViewModel.Initialize(shellFrame, navigationView, KeyboardAccelerators);
 
-            Window.Current.SetTitleBar(AppTitleBar);
+            // Extend NavigationView into title bar.
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
+            Window.Current.SetTitleBar(AppTitleBar);
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle(s);
         }
 
@@ -30,14 +38,11 @@ namespace LastTime.Views
             AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
         }
 
+        // MVC here to directly modify the NavigationPane.
         private void NavigationView_PaneClosing(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewPaneClosingEventArgs args)
-        {
-            ViewModel.UpdateAppTitleMargin(AppTitle, sender);
-        }
+            => ViewModel.UpdateAppTitleMargin(AppTitle, sender);
 
         private void NavigationView_PaneOpened(Microsoft.UI.Xaml.Controls.NavigationView sender, object args)
-        {
-            ViewModel.UpdateAppTitleMargin(AppTitle, sender);
-        }
+            => ViewModel.UpdateAppTitleMargin(AppTitle, sender);
     }
 }

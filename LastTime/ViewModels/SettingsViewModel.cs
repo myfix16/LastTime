@@ -6,6 +6,8 @@ using LastTime.Helpers;
 using LastTime.Services;
 
 using Windows.ApplicationModel;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace LastTime.ViewModels
@@ -53,6 +55,8 @@ namespace LastTime.ViewModels
                         {
                             ElementTheme = param;
                             await ThemeSelectorService.SetThemeAsync(param);
+
+                            UpdateSystemCaptionButtonColors(param);
                         });
                 }
 
@@ -85,5 +89,21 @@ namespace LastTime.ViewModels
             => "\"When did I do last time?\" \"How long haven't I done this thing?\" " +
                "--This app will help you. It can record the last-done-time of one event " +
                "so that you can remember the last time soon.";
+
+        public static void UpdateSystemCaptionButtonColors(ElementTheme param)
+        {
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+#pragma warning disable CS8509 // switch 表达式不会处理属于其输入类型的所有可能值(它并非详尽无遗)。
+            titleBar.ButtonForegroundColor = param switch
+            {
+                ElementTheme.Light => Colors.Black,
+                ElementTheme.Dark => Colors.White,
+                ElementTheme.Default =>
+                    (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+                        ? Colors.White : Colors.Black,
+            };
+#pragma warning restore CS8509 // switch 表达式不会处理属于其输入类型的所有可能值(它并非详尽无遗)。
+        }
     }
 }
