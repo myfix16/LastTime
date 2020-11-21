@@ -49,7 +49,7 @@
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
             IsSettingsVisible="True"
-            Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
             <winui:NavigationView.MenuItems>
                 <!--
@@ -58,13 +58,13 @@
                 Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
                 Edit String/en-US/Resources.resw: Add a menu item title for each page
                 -->
-                <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Events" Icon="View" helpers:NavHelper.NavigateTo="views:EventsPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Events" Icon="ViewAll" Content="Events" helpers:NavHelper.NavigateTo="views:EventsPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Calendar" Icon="Calendar" Content="Calendar" helpers:NavHelper.NavigateTo="views:CalendarPage" />
             </winui:NavigationView.MenuItems>
 
             <winui:NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
-                    x:Name="controlsSearchBox"
+                    x:Name="searchBox"
                     VerticalAlignment="Center"
                     x:FieldModifier="public"
                     PlaceholderText="Search"
@@ -76,6 +76,9 @@
                             <ic:InvokeCommandAction Command="{x:Bind ViewModel.TextChangedCommand}" />
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
+                    <AutoSuggestBox.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="F" Invoked="CtrlF_Invoked" />
+                    </AutoSuggestBox.KeyboardAccelerators>
                 </AutoSuggestBox>
             </winui:NavigationView.AutoSuggestBox>
 
@@ -88,7 +91,7 @@
                                 <TextBlock
                                     Text="{Binding}"
                                     Style="{ThemeResource TitleTextBlockStyle}"
-                                    Margin="{StaticResource SmallLeftRightMargin}" />
+                                    Margin="12,33,12,0" />
                             </Grid>
                         </DataTemplate>
                     </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
@@ -115,7 +118,7 @@
 
             </i:Interaction.Behaviors>
 
-            <Frame x:Name="shellFrame" Margin="0,80,0,0" />
+            <Frame x:Name="shellFrame" Margin="0,0,0,0" />
 
         </winui:NavigationView>
     </Grid>

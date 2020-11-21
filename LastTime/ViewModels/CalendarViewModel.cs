@@ -4,9 +4,9 @@ using LastTime.Helpers;
 
 namespace LastTime.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class CalendarViewModel : Observable
     {
-        public MainViewModel()
+        public CalendarViewModel()
         {
         }
     }

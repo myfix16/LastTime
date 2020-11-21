@@ -7,7 +7,7 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
+using Windows.UI.Xaml.Input;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace LastTime.Views
@@ -49,6 +49,10 @@ namespace LastTime.Views
                 () => NavigationView_DisplayModeChanged(),
                 "");
         }
+
+        // TODO: MVVM here for keyboard accelerator.
+        private void CtrlF_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+            => searchBox.Focus(FocusState.Programmatic);
 
         /// <summary>
         /// Change the margin of title bar and header when display mode of navigation view is changed.

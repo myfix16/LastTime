@@ -173,4 +173,8 @@
     <value>Events</value>
     <comment>Navigation view item name for Events</comment>
   </data>
+  <data name="Shell_Calendar.Content" xml:space="preserve">
+    <value>Calendar</value>
+    <comment>Navigation view item name for Calendar</comment>
+  </data>
 </root>
