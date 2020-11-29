@@ -17,7 +17,7 @@ namespace LastTime.ViewModels
     {
         private ICommand _itemClickCommand;
 
-        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<LastTimeEvent>(OnItemClick));
+        public ICommand ItemClickCommand => _itemClickCommand ??= new RelayCommand<LastTimeEvent>(OnItemClick);
 
         public ObservableCollection<LastTimeEvent> Source { get; } = new ObservableCollection<LastTimeEvent>();
 

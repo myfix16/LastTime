@@ -18,32 +18,11 @@
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <Border x:Name="AppTitleBar"
-                Grid.Column="1"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="40"
-                Canvas.ZIndex="1" Margin="40,0,0,0">
-            <TextBlock x:Name="AppTitle"
-                Text="{x:Bind ViewModel.GetAppTitleFromSystem()}"
-                VerticalAlignment="Center"
-                Style="{StaticResource CaptionTextBlockStyle}" FontSize="14" />
-        </Border>
-
-        <winui:NavigationView
+    <winui:NavigationView
             x:Name="navigationView"
-            Grid.Column="1"
-            Canvas.ZIndex="0"
+            PaneDisplayMode="Top"
             IsTabStop="False"
-            IsTitleBarAutoPaddingEnabled="False"
+            IsTitleBarAutoPaddingEnabled="True"
             AlwaysShowHeader="True"
             IsBackButtonVisible="Visible"
             IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
@@ -51,75 +30,57 @@
             IsSettingsVisible="True"
             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-            <winui:NavigationView.MenuItems>
-                <!--
-                TODO WTS: Change the symbols for each item as appropriate for your app
+        <winui:NavigationView.MenuItems>
+            <!--TODO WTS: Change the symbols for each item as appropriate for your app
                 More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
                 Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/release/docs/UWP/projectTypes/navigationpane.md
-                Edit String/en-US/Resources.resw: Add a menu item title for each page
-                -->
-                <winui:NavigationViewItem x:Uid="Shell_Events" Icon="ViewAll" Content="Events" helpers:NavHelper.NavigateTo="views:EventsPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Calendar" Icon="Calendar" Content="Calendar" helpers:NavHelper.NavigateTo="views:CalendarPage" />
-            </winui:NavigationView.MenuItems>
+                Edit String/en-US/Resources.resw: Add a menu item title for each page-->
+            <winui:NavigationViewItem x:Uid="Shell_Events" Icon="ViewAll" Content="Events" helpers:NavHelper.NavigateTo="views:EventsPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Calendar" Icon="Calendar" Content="Calendar" helpers:NavHelper.NavigateTo="views:CalendarPage" />
+        </winui:NavigationView.MenuItems>
 
-            <winui:NavigationView.AutoSuggestBox>
-                <AutoSuggestBox
+        <winui:NavigationView.AutoSuggestBox>
+            <AutoSuggestBox
                     x:Name="searchBox"
                     VerticalAlignment="Center"
                     x:FieldModifier="public"
                     PlaceholderText="Search"
                     QueryIcon="Find"
-                    MinWidth="200"
+                    MinWidth="150"
                     KeyboardAcceleratorPlacementMode="Hidden">
-                    <i:Interaction.Behaviors>
-                        <ic:EventTriggerBehavior EventName="TextChanged">
-                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.TextChangedCommand}" />
-                        </ic:EventTriggerBehavior>
-                    </i:Interaction.Behaviors>
-                    <AutoSuggestBox.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="Control" Key="F" Invoked="CtrlF_Invoked" />
-                    </AutoSuggestBox.KeyboardAccelerators>
-                </AutoSuggestBox>
-            </winui:NavigationView.AutoSuggestBox>
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="TextChanged">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.TextChangedCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <AutoSuggestBox.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="F" Invoked="CtrlF_Invoked" />
+                </AutoSuggestBox.KeyboardAccelerators>
+            </AutoSuggestBox>
+        </winui:NavigationView.AutoSuggestBox>
 
-            <i:Interaction.Behaviors>
-                <behaviors:NavigationViewHeaderBehavior
+        <i:Interaction.Behaviors>
+            <behaviors:NavigationViewHeaderBehavior
                     DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
-                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock
+                <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock
                                     Text="{Binding}"
                                     Style="{ThemeResource TitleTextBlockStyle}"
-                                    Margin="12,33,12,0" />
-                            </Grid>
-                        </DataTemplate>
-                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                </behaviors:NavigationViewHeaderBehavior>
+                                    Margin="12,10,12,0" />
+                        </Grid>
+                    </DataTemplate>
+                </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+            </behaviors:NavigationViewHeaderBehavior>
 
-                <ic:EventTriggerBehavior EventName="ItemInvoked">
-                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-                </ic:EventTriggerBehavior>
-                <ic:EventTriggerBehavior EventName="PaneOpening">
-                    <ic:InvokeCommandAction
-                        Command="{x:Bind ViewModel.SendMessageCommand}"
-                        CommandParameter="PaneChangedMessage" />
-                </ic:EventTriggerBehavior>
-                <ic:EventTriggerBehavior EventName="PaneClosing">
-                    <ic:InvokeCommandAction
-                        Command="{x:Bind ViewModel.SendMessageCommand}"
-                        CommandParameter="PaneChangedMessage" />
-                </ic:EventTriggerBehavior>
-                <ic:EventTriggerBehavior EventName="DisplayModeChanged">
-                    <ic:InvokeCommandAction
-                        Command="{x:Bind ViewModel.SendMessageCommand}"
-                        CommandParameter="DisplayModeChangedMessage" />
-                </ic:EventTriggerBehavior>
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+            </ic:EventTriggerBehavior>
 
-            </i:Interaction.Behaviors>
+        </i:Interaction.Behaviors>
 
-            <Frame x:Name="shellFrame" Margin="0,0,0,0" />
+        <Frame x:Name="shellFrame" Margin="10,20,10,10" />
 
-        </winui:NavigationView>
-    </Grid>
+    </winui:NavigationView>
 </Page>

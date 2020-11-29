@@ -13,6 +13,13 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
+            <CalendarView
+                HorizontalAlignment="Stretch"
+                SelectionMode="Single"
+                IsGroupLabelVisible="True"
+                IsOutOfScopeEnabled="True"
+                Language="en"
+                CalendarIdentifier="GregorianCalendar" VerticalAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Page>

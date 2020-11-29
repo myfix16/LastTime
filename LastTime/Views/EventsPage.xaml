@@ -1,12 +1,15 @@
 ﻿<Page
-    x:Class="LastTime.Views.EventsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:LastTime.Core.Models"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    x:Class="LastTime.Views.EventsPage"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
 
@@ -18,8 +21,9 @@
             DesiredWidth="360"
             ItemHeight="160"
             IsItemClickEnabled="True"
-            ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-            ItemsSource="{x:Bind ViewModel.Source,Mode=OneWay}"
+            ItemClickCommand="{x:Bind Path=ViewModel.ItemClickCommand}"
+            ItemsSource="{x:Bind Mode=OneWay, Path=ViewModel.Source}"
+            ItemContainerStyle="{StaticResource GridViewItemRevealStyle}"
             SelectionMode="None"
             StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
@@ -29,16 +33,31 @@
                         Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                         Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <FontIcon Glyph="{x:Bind Symbol}" />
+                            <FontIcon Glyph="{x:Bind Path=Symbol}" />
                             <TextBlock
                                 Margin="{StaticResource XXSmallTopMargin}"
                                 HorizontalAlignment="Center"
                                 Style="{ThemeResource BodyTextStyle}"
-                                Text="{x:Bind Description}" />
+                                Text="{x:Bind Path=Description}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </controls:AdaptiveGridView.ItemTemplate>
+            <controls:AdaptiveGridView.ContextFlyout>
+                <winui:CommandBarFlyout Placement="Right" x:Name="ItemCommandBarFlyout" ShowMode="Auto">
+                    <winui:CommandBarFlyout.SecondaryCommands>
+                        <AppBarButton Label="Share" Icon="Share" ToolTipService.ToolTip="Share" />
+                        <AppBarButton Label="Save" Icon="Save" ToolTipService.ToolTip="Save"/>
+                        <AppBarButton Label="Delete" Icon="Delete" ToolTipService.ToolTip="Delete">
+                            <!--<i:Interaction.Behaviors>
+                                <ic:EventTriggerBehavior EventName="Click">
+                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
+                                </ic:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>-->
+                        </AppBarButton>
+                    </winui:CommandBarFlyout.SecondaryCommands>
+                </winui:CommandBarFlyout>
+            </controls:AdaptiveGridView.ContextFlyout>
         </controls:AdaptiveGridView>
     </Grid>
 </Page>
