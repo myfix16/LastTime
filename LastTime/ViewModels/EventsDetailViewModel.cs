@@ -10,9 +10,9 @@ namespace LastTime.ViewModels
 {
     public class EventsDetailViewModel : ViewModelBase
     {
-        private SampleOrder _item;
+        private LastTimeEvent _item;
 
-        public SampleOrder Item
+        public LastTimeEvent Item
         {
             get { return _item; }
             set { Set(ref _item, value); }
@@ -22,10 +22,10 @@ namespace LastTime.ViewModels
         {
         }
 
-        public async Task InitializeAsync(long orderID)
+        public async Task InitializeAsync(string eventID)
         {
-            var data = await SampleDataService.GetContentGridDataAsync();
-            Item = data.First(i => i.OrderID == orderID);
+            var data = await EventsDataService.GetContentGridDataAsync();
+            Item = data.First(i => i.ID == eventID);
         }
     }
 }

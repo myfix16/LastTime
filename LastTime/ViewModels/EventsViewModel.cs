@@ -17,9 +17,9 @@ namespace LastTime.ViewModels
     {
         private ICommand _itemClickCommand;
 
-        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<SampleOrder>(OnItemClick));
+        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<LastTimeEvent>(OnItemClick));
 
-        public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
+        public ObservableCollection<LastTimeEvent> Source { get; } = new ObservableCollection<LastTimeEvent>();
 
         public EventsViewModel()
         {
@@ -29,20 +29,19 @@ namespace LastTime.ViewModels
         {
             Source.Clear();
 
-            // TODO WTS: Replace this with your actual data
-            var data = await SampleDataService.GetContentGridDataAsync();
+            var data = await EventsDataService.GetContentGridDataAsync();
             foreach (var item in data)
             {
                 Source.Add(item);
             }
         }
 
-        private void OnItemClick(SampleOrder clickedItem)
+        private void OnItemClick(LastTimeEvent clickedItem)
         {
             if (clickedItem != null)
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
-                NavigationService.Navigate<EventsDetailPage>(clickedItem.OrderID);
+                NavigationService.Navigate<EventsDetailPage>(clickedItem.ID);
             }
         }
     }

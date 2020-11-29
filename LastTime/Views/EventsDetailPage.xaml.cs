@@ -23,9 +23,9 @@ namespace LastTime.Views
         {
             base.OnNavigatedTo(e);
             this.RegisterElementForConnectedAnimation("animationKeyEvents", itemHero);
-            if (e.Parameter is long orderID)
+            if (e.Parameter is string eventID)
             {
-                await ViewModel.InitializeAsync(orderID);
+                await ViewModel.InitializeAsync(eventID);
             }
         }
 

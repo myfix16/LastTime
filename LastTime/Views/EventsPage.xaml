@@ -15,7 +15,7 @@
             Padding="{StaticResource MediumLeftRightMargin}"
             animations:Connected.ListItemElementName="itemThumbnail"
             animations:Connected.ListItemKey="animationKeyEvents"
-            DesiredWidth="180"
+            DesiredWidth="360"
             ItemHeight="160"
             IsItemClickEnabled="True"
             ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
@@ -23,7 +23,7 @@
             SelectionMode="None"
             StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate x:DataType="models:SampleOrder">
+                <DataTemplate x:DataType="models:LastTimeEvent">
                     <Grid
                         x:Name="itemThumbnail"
                         Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
@@ -34,7 +34,7 @@
                                 Margin="{StaticResource XXSmallTopMargin}"
                                 HorizontalAlignment="Center"
                                 Style="{ThemeResource BodyTextStyle}"
-                                Text="{x:Bind Company}" />
+                                Text="{x:Bind Description}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

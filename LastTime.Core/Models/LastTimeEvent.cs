@@ -5,8 +5,12 @@ using System.Text;
 
 namespace LastTime.Core.Models
 {
-    class LastTimeEvent
+    public class LastTimeEvent
     {
+        /// <summary>
+        /// The unique ID of an event.
+        /// </summary>
+        public string ID { get; set; }= Guid.NewGuid().ToString();
         /// <summary>
         /// Name of the event.
         /// </summary>
@@ -15,6 +19,8 @@ namespace LastTime.Core.Models
         /// The description of the event.
         /// </summary>
         public string Description { get; set; }
+        public int SymbolCode { get; set; } = 57643;
+        public char Symbol => (char)SymbolCode;
         /// <summary>
         /// A list of all last-done date in sequential order.
         /// </summary>

@@ -14,7 +14,7 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <!--641 is the default CompactModeThresholdWidth in NavigationView--> 
                         <AdaptiveTrigger MinWindowWidth="641" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -45,44 +45,7 @@
                         Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
                         RelativePanel.AlignTopWithPanel="True"
                         RelativePanel.AlignLeftWithPanel="True">
-                        <FontIcon
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="70"
-                            Glyph="{x:Bind ViewModel.Item.Symbol}" />
                     </Grid>
-
-                    <TextBlock
-                        x:Name="title"
-                        Margin="{StaticResource XXSmallTopMargin}"
-                        RelativePanel.AlignTopWithPanel="True"
-                        RelativePanel.RightOf="itemHero"
-                        Style="{ThemeResource TitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Company, Mode=OneWay}" />
-
-                    <StackPanel x:Name="propertiesGroup1" RelativePanel.Below="itemHero">
-                        <StackPanel x:Name="statusGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{StaticResource DetailSubTitleStyle}" Text="Status" />
-                            <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.Status}" />
-                        </StackPanel>
-
-                        <StackPanel x:Name="orderDateGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{StaticResource DetailSubTitleStyle}" Text="Order date" />
-                            <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.OrderDate}" />
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel x:Name="propertiesGroup2" RelativePanel.Below="propertiesGroup1">
-                        <StackPanel x:Name="shipToGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{StaticResource DetailSubTitleStyle}" Text="Ship to" />
-                            <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.ShipTo}" />
-                        </StackPanel>
-
-                        <StackPanel x:Name="orderTotalGroup" Margin="{StaticResource SmallTopMargin}">
-                            <TextBlock Style="{StaticResource DetailSubTitleStyle}" Text="Order total" />
-                            <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.OrderTotal}" />
-                        </StackPanel>
-                    </StackPanel>
 
                 </RelativePanel>
 
