@@ -10,7 +10,7 @@ namespace LastTime.Core.Models
         /// <summary>
         /// The unique ID of an event.
         /// </summary>
-        public string ID { get; set; }= Guid.NewGuid().ToString();
+        public string ID { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// Name of the event.
         /// </summary>
@@ -21,6 +21,7 @@ namespace LastTime.Core.Models
         public string Description { get; set; }
         public int SymbolCode { get; set; } = 57643;
         public char Symbol => (char)SymbolCode;
+        public string DayDifference { get => $"{GetDayDifference(LastTimes[0])} days ago"; }
         /// <summary>
         /// A list of all last-done date in sequential order.
         /// </summary>
@@ -31,7 +32,7 @@ namespace LastTime.Core.Models
         /// </summary>
         /// <param name="date">The date to compare with today.</param>
         /// <returns>The day difference.</returns>
-        public static int GetDayDifference(DateTime dateCreated, DateTime dateChecked) 
-            => (dateChecked-dateCreated).Days;
+        public static int GetDayDifference(DateTime dateCreated)
+            => (DateTime.Today - dateCreated).Days;
     }
 }

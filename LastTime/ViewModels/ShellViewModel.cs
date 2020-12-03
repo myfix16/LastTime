@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel.Description;
 using System.Threading.Tasks;
@@ -163,9 +164,5 @@ namespace LastTime.ViewModels
             var result = NavigationService.GoBack();
             args.Handled = result;
         }
-
-        public string GetAppTitleFromSystem()
-            => Windows.ApplicationModel.Package.Current.DisplayName;
-
     }
 }

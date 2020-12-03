@@ -32,13 +32,20 @@
                         x:Name="itemThumbnail"
                         Padding="{StaticResource XSmallLeftTopRightBottomMargin}"
                         Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <FontIcon Glyph="{x:Bind Path=Symbol}" />
-                            <TextBlock
-                                Margin="{StaticResource XXSmallTopMargin}"
-                                HorizontalAlignment="Center"
-                                Style="{ThemeResource BodyTextStyle}"
-                                Text="{x:Bind Path=Description}" />
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <FontIcon Glyph="{x:Bind Path=Symbol}" Margin="40,0,40,0"/>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallTopMargin}"
+                                    HorizontalAlignment="Left"
+                                    Style="{ThemeResource BodyTextStyle}"
+                                    Text="{x:Bind Path=DayDifference}" />
+                                <TextBlock
+                                    Margin="{StaticResource XXSmallTopMargin}"
+                                    HorizontalAlignment="Left"
+                                    Style="{ThemeResource BodyTextStyle}"
+                                    Text="{x:Bind Path=Description}" />
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

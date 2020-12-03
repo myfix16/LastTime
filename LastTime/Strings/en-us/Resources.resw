@@ -177,4 +177,8 @@
     <value>Calendar</value>
     <comment>Navigation view item name for Calendar</comment>
   </data>
+  <data name="Shell_PageHeader.Content" xml:space="preserve">
+    <value>PageHeader</value>
+    <comment>Navigation view item name for PageHeader</comment>
+  </data>
 </root>

@@ -109,6 +109,16 @@ namespace LastTime.Core.Services
             await Task.CompletedTask;
             return _allEvents.OrderByDescending(e => e.LastTimes.First());
         }
+
+        public static void DeleteItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void AddNewItem()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

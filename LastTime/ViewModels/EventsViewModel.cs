@@ -10,6 +10,7 @@ using LastTime.Services;
 using LastTime.Views;
 
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Windows.UI.Xaml.Controls;
 
 namespace LastTime.ViewModels
 {
@@ -20,6 +21,13 @@ namespace LastTime.ViewModels
         public ICommand ItemClickCommand => _itemClickCommand ??= new RelayCommand<LastTimeEvent>(OnItemClick);
 
         public ObservableCollection<LastTimeEvent> Source { get; } = new ObservableCollection<LastTimeEvent>();
+
+        public ObservableCollection<AppBarButton> AppBarButtonList { get; }
+            = new ObservableCollection<AppBarButton>
+            {
+                new AppBarButton { Icon = new SymbolIcon(Symbol.Accept), Label="Accept" },
+                new AppBarButton { Icon = new SymbolIcon(Symbol.Add), Label="Add" }
+            };
 
         public EventsViewModel()
         {
@@ -34,6 +42,11 @@ namespace LastTime.ViewModels
             {
                 Source.Add(item);
             }
+        }
+
+        public void AddTerm(LastTimeEvent lastTimeEvent)
+        {
+            Source.Add(lastTimeEvent);
         }
 
         private void OnItemClick(LastTimeEvent clickedItem)

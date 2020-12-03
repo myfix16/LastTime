@@ -1,4 +1,5 @@
 ﻿using System;
+using LastTime.Core.Services;
 using LastTime.Services;
 using LastTime.ViewModels;
 using Windows.ApplicationModel.Core;
@@ -32,5 +33,11 @@ namespace LastTime.Views
         // TODO: MVVM here for keyboard accelerator.
         private void CtrlF_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
             => searchBox.Focus(FocusState.Programmatic);
+
+        // TODO: MVVM here for Header CommandBar.
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            // ! Bad experience.
+        }
     }
 }

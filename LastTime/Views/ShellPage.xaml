@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:Name="page"
     x:Class="LastTime.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -19,16 +19,16 @@
     </i:Interaction.Behaviors>
 
     <winui:NavigationView
-            x:Name="navigationView"
-            PaneDisplayMode="Top"
-            IsTabStop="False"
-            IsTitleBarAutoPaddingEnabled="True"
-            AlwaysShowHeader="True"
-            IsBackButtonVisible="Visible"
-            IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
-            SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-            IsSettingsVisible="True"
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        x:Name="navigationView"
+        PaneDisplayMode="Top"
+        IsTabStop="False"
+        IsTitleBarAutoPaddingEnabled="True"
+        AlwaysShowHeader="True"
+        IsBackButtonVisible="Visible"
+        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+        IsSettingsVisible="True"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <winui:NavigationView.MenuItems>
             <!--TODO WTS: Change the symbols for each item as appropriate for your app
@@ -41,13 +41,13 @@
 
         <winui:NavigationView.AutoSuggestBox>
             <AutoSuggestBox
-                    x:Name="searchBox"
-                    VerticalAlignment="Center"
-                    x:FieldModifier="public"
-                    PlaceholderText="Search"
-                    QueryIcon="Find"
-                    MinWidth="150"
-                    KeyboardAcceleratorPlacementMode="Hidden">
+                x:Name="searchBox"
+                VerticalAlignment="Center"
+                x:FieldModifier="public"
+                PlaceholderText="Search"
+                QueryIcon="Find"
+                MinWidth="150"
+                KeyboardAcceleratorPlacementMode="Hidden">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="TextChanged">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.TextChangedCommand}" />
@@ -61,14 +61,33 @@
 
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
-                    DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
+                DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
                             <TextBlock
-                                    Text="{Binding}"
-                                    Style="{ThemeResource TitleTextBlockStyle}"
-                                    Margin="12,10,12,0" />
+                                Text="{Binding}"
+                                Style="{ThemeResource TitleTextBlockStyle}"
+                                Margin="12,10,12,0" />
+                            <CommandBar
+                                Name="headerCommandBar"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                DefaultLabelPosition="Right"
+                                Background="Transparent">
+                                <CommandBar.PrimaryCommands>
+                                    <AppBarButton Label="Add" Icon="Add"/>
+                                </CommandBar.PrimaryCommands>
+                                <i:Interaction.Behaviors>
+                                    <behaviors:BindableCommandBarBehavior
+                                        PrimaryCommands="{Binding Path=Content.ViewModel.AppBarButtonList,ElementName=shellFrame, Mode=OneWay}" />
+                                </i:Interaction.Behaviors>
+                            </CommandBar>
                         </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
@@ -80,7 +99,7 @@
 
         </i:Interaction.Behaviors>
 
-        <Frame x:Name="shellFrame" Margin="10,20,10,10" />
+        <Frame x:Name="shellFrame" Margin="10,20,10,20" />
 
     </winui:NavigationView>
 </Page>
